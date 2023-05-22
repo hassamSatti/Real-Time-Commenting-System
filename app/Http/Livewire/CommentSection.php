@@ -18,7 +18,8 @@ class CommentSection extends Component
 
     public function render()
     { 
-        $comments = Comment::where('artical_id', $this->article->id)
+        $comments = Comment::select('comments.*', 'comments.created_at as ago')
+        ->where('artical_id', $this->article->id)
         ->join('users', 'comments.user_id', '=', 'users.id')
         ->orderBy('comments.created_at', 'desc')
         ->get(); 
